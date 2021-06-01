@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Heart Failure Prediction Using Machine Learning</title>
+  <link rel="icon" type="image/png" href="https://img.icons8.com/doodle/48/000000/medical-heart.png">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="static/css/d3Style.css">
+  
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+        <img src="../static/Images/heart.png" class="img-fluid" > 
+    </div>
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1>Heart Failure Prediction Model</h1>
+        <h2>What is heart failure? Heart failure happens when the heart cannot pump enough blood and oxygen to support other organs in your body.</h2>
+        <h2>Facts About Heart Failure in the United States from the CDC:</h2>
+        <ul>
+          <li>Heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States.</li>
+          <li>One person dies every 36 seconds in the United States from cardiovascular disease.</li>
+          <li>About 655,000 Americans die from heart disease each year—that’s 1 in every 4 deaths.</li>
+        </ul>
+        <h3 class="update">The below form takes patient data and uses machine learning to predict if the patient is at risk for heart failure.</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="well">
+          <h4>Input the following information into the form:</h4>
+         
+          <h5>Age (years)</h5>
+          <br>
+          <h5>Do you have anemia?  (Yes/No)</h5>
+          <br>
+          <h5>Creatinine Phosphokinase Level (mcg/L). Typical range is 10 to 120.</h5>
+          <br>
+          <h5>Are you diabetic?   (Yes/No)</h5>
+          <br>
+          <h5>Ejection Fraction (percentage). Typical range is 50 to 70%<h5>
+          <br>
+          <h5>Platelets in Blood (kiloplatelets/mL). Typical range is 150k to 450k. </h5>
+          <br>
+          <h5>Serum Creatinine level (mg/dL). Typical range is 0.6 to 1.35. </h5>
+          <br>
+          <h5>Serum Sodium level (mEq/L). Typical range is 135 to 145. </h5>
+          <br>
+          <h5>Gender (M/F)</h5>         
+        </div>
+
+      </div>
+      <div class="col-md-2">
+        <aside class="filters">
+          <div class="panel panel-default">
+            <div class="panel-heading">Input Data Form</div>
+            <div class="panel-body">
+              <form action="/result" method="POST">
+                <div class="form-group">
+                
+                  <ul class="list-group" id="filters">
+                    <li class="filter list-group-item">
+                      <label for="age">Age</label>
+                      <input class="form-control" id="age" type="number" name="age" placeholder="30">
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="anemia">Anemia (Yes/No)</label>
+                      <select class="form-control" id="anemia"  name="anaemia"  placeholder="0">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                      </select>
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="creatinine_phosphokinase level (mcg/L)">Creatinine Phosphokinase Level (mcg/L)</label>
+                      <input class="form-control" id="creatinine_phosphokinase level (mcg/L)" type="number" name="creatinine_phosphokinase" placeholder="1000">
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="diabetic">Diabetic (Yes/No))</label>
+                      <select class="form-control" id="diabetic"  name="diabetes" placeholder="No">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                      </select>
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="Ejection Fraction">Ejection Fraction</label>
+                      <input class="form-control" id="Ejection Fraction" type="number" name="ejection_fraction" placeholder="50">
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="Platelets in the blood (kiloplatelets/mL)">Platelets in Blood (kiloplatelets/mL)</label>
+                      <input class="form-control" id="Platelets in the blood (kiloplatelets/mL)" type="number" name="platelets" placeholder="263000">
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="Serum Creatinine">Serum Creatinine (mg/dL)</label>
+                      <input class="form-control" id="Serum Creatinine" type="text" name="serum_creatinine" placeholder="1.1">
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="Serum Sodium (mEq/L)">Serum Sodium (mEq/L)</label>
+                      <input class="form-control" id="Serum Sodium (mEq/L)" type="number" name="serum_sodium" placeholder="140">
+                    </li>
+                    <li class="filter list-group-item">
+                      <label for="Gender (M/F)">Gender (M/F)</label>
+                      <select class="form-control" id="Gender (M/F)"  name="sex" placeholder="M">
+                        <option value="0">M</option>
+                        <option value="1">F</option>
+                      </select>
+                    </li>
+                  </ul>
+                </div>
+                <button id="filter-btn" type="submit" class="btn btn-default" value="Submit">See Results</button>
+              </form>
+            </div>
+          </div>
+        </aside>
+      </div>
+      <div class="col-md-6">
+        <div id="scatter">
+
+      </div>
+      
+    
+  </div>
+
+
+
+ 
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="static/js/bonus.js"></script>
+  
+  
+  
+</body>
+
+</html>
