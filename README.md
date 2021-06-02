@@ -1,4 +1,5 @@
 # Heart Failure | An Early Warning ML Application
+## Gabriel Allen & Noah Laraway
 
 ![](static/Images/heart.png)
 
